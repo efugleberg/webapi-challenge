@@ -99,6 +99,17 @@ server.get("/projects/:id", (req, res) => {
     });
 });
 
+server.get("/projects/:id/actions", (req, res) => {
+    const { id } = req.params;
+    Projects.getProjectActions(id)
+    .then(projects => {
+        res.status(200).json(projects);
+    })
+    .catch(error => {
+        res.status(500).json({ error: "couldn't retrieve actions" })
+    })
+})
+
 server.post("/projects/", (req, res) => {
   const { name, description } = req.body;
   Projects.insert({ name, description })
